@@ -225,10 +225,10 @@ public class BetterhipHomeController extends HttpServlet {
 			viewPage = "signup/signupForm.jsp";
 			break;
 		
-		case("/signup.do") :
+		case("/signup/signup.do") :
 			command = new SignUpCommand();
 			command.excute(request, response);
-			viewPage = "signup/signupResult.jsp";
+			viewPage = "signupResult.jsp";
 			break;
 		
 		case("/loginForm.do") :
@@ -265,7 +265,6 @@ public class BetterhipHomeController extends HttpServlet {
 			viewPage = "login/printPw.jsp";
 			break;
 		}
-		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 				
