@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.betterhip.command.BetterhipCommand;
 import com.betterhip.command.cart.CartDeleteCommand;
@@ -33,6 +34,7 @@ import com.betterhip.command.order.CakeReviewWriteCommand;
 import com.betterhip.command.payment.PaymentCommand;
 import com.betterhip.command.payment.PaymentListCommand;
 import com.betterhip.command.payment.PaymentSuccessCommand;
+import com.betterhip.command.signup.SignUpCheckIdCommand;
 import com.betterhip.command.signup.SignUpCommand;
 
 /**
@@ -68,6 +70,7 @@ public class BetterhipHomeController extends HttpServlet {
 		System.out.println("actionDo");
 		response.setCharacterEncoding("UTF-8");
 		
+		HttpSession session = request.getSession();
 		
 		String viewPage = null;
 		BetterhipCommand command = null;
@@ -231,6 +234,12 @@ public class BetterhipHomeController extends HttpServlet {
 			viewPage = "signupResult.jsp";
 			break;
 		
+		case("/signup/signupCheckId.do") :
+			command = new SignUpCheckIdCommand();
+			command.excute(request, response);
+			viewPage = "signupCheckIdResult.jsp";
+			break;
+			
 		case("/loginForm.do") :
 			viewPage = "login/login.jsp";
 			break;
