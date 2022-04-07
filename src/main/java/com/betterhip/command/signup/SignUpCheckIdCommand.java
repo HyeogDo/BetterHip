@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import com.betterhip.command.BetterhipCommand;
 import com.betterhip.dao.signup.SignUpDao;
 import com.betterhip.dto.signup.SignupCheckIdDto;
-import com.mysql.cj.Session;
 
 public class SignUpCheckIdCommand implements BetterhipCommand {
 
@@ -22,9 +21,9 @@ public class SignUpCheckIdCommand implements BetterhipCommand {
 		HttpSession session = request.getSession();
 		
 		if (dto.getUser_id() == null) {
-			session.setAttribute("RESULT", "Possible");
+			session.setAttribute("RESULT_ID", "Possible");
 		} else {
-			session.setAttribute("RESULT", "Impossible");
+			session.setAttribute("RESULT_ID", "Impossible");
 		}
 		
 		

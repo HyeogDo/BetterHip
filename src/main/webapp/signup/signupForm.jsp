@@ -99,7 +99,8 @@ const autoHyphen2 = (target) => {
 			return
 		} else {
 			isCheckedId = true
-			window.open("http://localhost:9413/BetterHip/signup/signupCheckId.do?user_id=" + user_id,"","width=500, height=300, left=500, top=150");
+			window.name = "parentform"
+			window.open("http://localhost:9413/BetterHip/signup/signupCheckId.do?user_id=" + user_id,"childform","width=500, height=300, left=500, top=150");
 		}
 		
 
@@ -127,6 +128,8 @@ const autoHyphen2 = (target) => {
 				window.open("http://localhost:9413/BetterHip/signup/signupCheckPhone.do?user_phone=" + user_phone,"","width=500, height=300, left=500, top=150");
 			}
 		} 
+		
+		
 		
 	}
 </script>
@@ -159,6 +162,7 @@ const autoHyphen2 = (target) => {
 		}
 		if(user_pw != user_pw_re) {
 			alert("비밀번호 재확인이 잘못되었습니다.")
+			return
 		}
 		
 		// 이름 확인
@@ -219,6 +223,8 @@ const autoHyphen2 = (target) => {
 			alert("핸드폰 번호 중복체크를 해주세요")
 			return
 		}
+		
+		
 		document.signupForm.submit();
 	}
 </script>
@@ -423,7 +429,7 @@ const autoHyphen2 = (target) => {
 				</tr>
 			</table>
 			<br>
-			<div id="div1">	<input type="text" value=<%=session.getAttribute("RESULT") %>></div>
+			<input type="text" value=<%=session.getAttribute("RESULT_ID") %>>
 		</form>
 	</div>
 </body>

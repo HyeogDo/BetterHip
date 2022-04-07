@@ -6,11 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<script type="text/javascript">
-</script>
 <body>
 	<%
-		String result = session.getAttribute("RESULT").toString();
+		String result = session.getAttribute("RESULT_ID").toString();
 		if (result.equals("Possible")) {
 			%>사용 가능한 아이디 입니다!!<%
 		} else {
