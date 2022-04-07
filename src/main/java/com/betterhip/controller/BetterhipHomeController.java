@@ -71,6 +71,7 @@ public class BetterhipHomeController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		HttpSession session = request.getSession();
+		session.setAttribute("message", "init");
 		
 		String viewPage = null;
 		BetterhipCommand command = null;
@@ -247,7 +248,7 @@ public class BetterhipHomeController extends HttpServlet {
 		case("/login.do") :
 			command = new LoginCommand();
 			command.excute(request, response);
-			viewPage = "main.do";
+			viewPage = request.getAttribute("viewPage").toString();
 			break;
 		
 		case("/findIdPage.do") :
