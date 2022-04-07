@@ -13,8 +13,8 @@
 	request.setCharacterEncoding("utf-8"); 
 	String user_id = request.getParameter("user_id"); 
 	session=request.getSession();
-	session.setAttribute("LoginId", user_id);
-	out.print(session.getAttribute("LoginId"));
+	session.setAttribute("USER_ID", user_id);
+	out.print(session.getAttribute("USER_ID"));
 %>
 	
 

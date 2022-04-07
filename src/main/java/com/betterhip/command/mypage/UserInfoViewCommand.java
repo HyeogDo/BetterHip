@@ -17,10 +17,10 @@ public class UserInfoViewCommand implements BetterhipCommand {
 		// TODO Auto-generated method stub
 		
 		HttpSession session = request.getSession();
-		String LoginId = (String) session.getAttribute("LoginId"); 
+		String USER_ID = (String) session.getAttribute("USER_ID"); 
 		
 		UserInfoViewDao dao = new UserInfoViewDao();
-		UserInfoDto dto = dao.userInfoView(LoginId); 
+		UserInfoDto dto = dao.userInfoView(USER_ID); 
 		request.setAttribute("userInfo", dto);
 		
 		

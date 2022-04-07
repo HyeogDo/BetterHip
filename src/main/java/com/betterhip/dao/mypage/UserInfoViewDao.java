@@ -38,7 +38,7 @@ public class UserInfoViewDao {
 	
 	//method 
 	
-	public UserInfoDto userInfoView(String LoginId){
+	public UserInfoDto userInfoView(String USER_ID){
 		
 		
 		UserInfoDto dto = null;
@@ -51,7 +51,7 @@ public class UserInfoViewDao {
 			connection = dataSource.getConnection();
 			String query = "select user_id, user_pw, user_name, user_phone, user_email, user_postcode, user_address, user_address_detail from user where user_id = ?";
 			preparedStatement = connection.prepareStatement(query); 
-			preparedStatement.setString(1, LoginId);
+			preparedStatement.setString(1, USER_ID);
 			resultSet = preparedStatement.executeQuery();
 			
 			if(resultSet.next()) {

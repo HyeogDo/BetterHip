@@ -145,10 +145,11 @@ public class BetterhipHomeController extends HttpServlet {
 			viewPage = "userInfoDeleteView.jsp";
 			break;
 			
-		case("/userInfoDelete.do") :
+			//회원탈퇴 
+		case("/mypage/userInfoDelete.do") :
 			command = new UserInfoDeleteCommand();
 			command.excute(request, response);
-			viewPage = "mypage/goodbye.jsp";
+			viewPage = "goodbye.jsp";
 			break;
 			
 		case("/cakeListView.do") :
