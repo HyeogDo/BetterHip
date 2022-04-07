@@ -62,7 +62,7 @@ const autoHyphen2 = (target) => {
 			document.getElementById('checking').style.color='red'
 		} else {
 			document.getElementById('checking').innerHTML='사용가능한 비밀번호 입니다.'
-				document.getElementById('checking').style.color='blue'
+			document.getElementById('checking').style.color='blue'
 		}
 	}
 	function checkPwRe() {
@@ -79,9 +79,61 @@ const autoHyphen2 = (target) => {
 	}
 </script>
 
+
+<!-- 아이디&전화번호 중복확인 -->
+<script type="text/javascript">
+	var isCheckedId = false
+	var isCheckedPhone = false
+</script>
+<!-- 아이디 중복확인 -->
+<script type="text/javascript">
+	function checkId() {
+		//영문자로 시작하는 영문자 또는 숫자 6~20자
+		var regExpId = /^[a-z]+[a-z0-9]{5,19}$/g
+		var form = document.signupForm
+		
+		var user_id = form.user_id.value
+		if(!regExpId.test(user_id)) {
+			alert("아이디는 영문자로 시작하는 영문자 혹은 숫자 6~20자로 입력해주세요")
+			form.user_id.select()
+			return
+		} else {
+			isCheckedId = true
+			window.open("http://localhost:9413/BetterHip/signup/signupCheckId.do?user_id=" + user_id,"","width=500, height=300, left=500, top=150");
+		}
+		
+
+	}
+</script>
+
+<!-- 전화번호 중복 확인 -->
+<script type="text/javascript">
+	function checkPhone() {
+		var regExpPhone = /^\d{3}\d{3,4}\d{4}$/
+		var form = document.signupForm
+		
+		// 핸드폰 번호 확인
+		var user_phone = form.user_phone.value
+		if(user_phone == "") {
+			alert("휴대폰 번호를 입력해주세요")
+			return
+		} else {
+			if (!regExpPhone.test(user_phone)) {
+				alert("연락처 입력을 확인해 주세요")
+				form.user_phone.select()
+				return
+			} else {
+				isCheckedId = true
+				window.open("http://localhost:9413/BetterHip/signup/signupCheckPhone.do?user_phone=" + user_phone,"","width=500, height=300, left=500, top=150");
+			}
+		} 
+		
+	}
+</script>
+
 <!-- 유효성 검사 -->
 <script type="text/javascript">
-	function test() {
+	function signup() {
 
 		//숫자만 5~10자
 		var regExpPasswd = /[0-9]{5,10}$/
@@ -91,8 +143,9 @@ const autoHyphen2 = (target) => {
 		
 		var form = document.signupForm
 
-		
+		// 비밀번호 확인
 		var user_pw = form.user_pw.value
+		var user_pw_re = form.user_pw_re.value
 		if(user_pw == "") {
 			alert("비밀번호를 입력해주세요")
 			return
@@ -104,7 +157,11 @@ const autoHyphen2 = (target) => {
 			}
 			
 		}
+		if(user_pw != user_pw_re) {
+			alert("비밀번호 재확인이 잘못되었습니다.")
+		}
 		
+		// 이름 확인
 		var user_name = form.user_name.value
 		if(user_name == "") {
 			alert("이름을 입력해주세요")
@@ -117,18 +174,9 @@ const autoHyphen2 = (target) => {
 			}
 		}
 		
-		var user_phone = form.user_phone.value
-		if(user_phone == "") {
-			alert("휴대폰 번호를 입력해주세요")
-			return
-		}else {
-			if (!regExpPhone.test(user_phone)) {
-				alert("연락처 입력을 확인해 주세요")
-				form.user_phone.select()
-				return
-			}
-		}
 		
+		
+		//이메일 확인
 		var user_email = form.user_email.value
 		if(user_email == "") {
 			alert("이메일을 입력해주세요")
@@ -140,6 +188,32 @@ const autoHyphen2 = (target) => {
 				return
 			}
 		}
+		
+		// 주소 확인
+		var user_address = form.address1.value
+		var user_address_detail = form.address2.value
+		if(user_address == "") {
+			alert("주소를 입력해주세요")
+			return
+		}
+		if(user_address_detail = "") {
+			alert("상세주소를 입력해주세요")
+			form.address2.select()
+			return
+		}
+		
+		//약관 동의 여부 확인
+		var values = document.getElementsByName("check")
+		if(!values[0].checked || !values[1].checked) {
+			alert("필수 약관에 동의해주세요!")
+			return
+		}
+		
+		// 아이디 중복체크 확인 여부
+		if(isCheckedId == false) {
+			alert("아이디 중복체크를 해주세요")
+			return
+		}
 
 		document.signupForm.submit();
 	}
@@ -147,37 +221,11 @@ const autoHyphen2 = (target) => {
 
 
 
-<!-- 아이디 중복확인 -->
-<script type="text/javascript">
-	function checkId() {
-		//영문자로 시작하는 영문자 또는 숫자 6~20자
-		var regExpId = /^[a-z]+[a-z0-9]{5,19}$/g
-		
-		var form = document.signupForm
-		
-		var user_id = form.user_id.value
-		if(!regExpId.test(user_id)) {
-			alert("아이디는 영문자로 시작하는 영문자 혹은 숫자 6~20자로 입력해주세요")
-			form.user_id.select()
-			return
-		} else {
-			window.open("http://localhost:9413/BetterHip/signup/signupCheckId.do?user_id=" + user_id,"","width=500, height=300, left=500, top=150");
-		}
-		
-
-	}
-</script>
 
 
 
-<!-- 전화번호 중복 확인 -->
-<script type="text/javascript">
-	function checkPhone() {
-		var regExpPhone = /^\d{3}\d{3,4}\d{4}$/
-		
-		
-	}
-</script>
+
+
 
 <!-- 약관 동의 체크박스 설정 -->
 <script type="text/javascript">
@@ -328,14 +376,10 @@ const autoHyphen2 = (target) => {
 					<td>주소</td>
 				</tr>
 				<tr>
-					<td><input type="text" onclick="sample6_execDaumPostcode()"
-						readonly="readonly" id="sample6_postcode" name="postcode">
-						<input type="button" onclick="sample6_execDaumPostcode()"
-						value="우편번호"><br> <input type="text"
-						onclick="sample6_execDaumPostcode()" readonly="readonly"
-						id="sample6_address" size="41" placeholder="기본주소" name="address1"><br>
-						<input type="text" id="sample6_detailAddress" size="41"
-						placeholder="상세주소 입력" name="address2"></td>
+					<td><input type="text" onclick="sample6_execDaumPostcode()" readonly="readonly" id="sample6_postcode" name="postcode">
+						<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호"><br>
+						<input type="text" onclick="sample6_execDaumPostcode()" readonly="readonly" id="sample6_address" size="41" placeholder="기본주소" name="address1"><br>
+						<input type="text" id="sample6_detailAddress" size="41" placeholder="상세주소 입력" name="address2"></td>
 				</tr>
 
 			</table>
@@ -369,7 +413,7 @@ const autoHyphen2 = (target) => {
 					<!-- 이동하는 버튼  -->
 					<td align="center" colspan="2">
 
-						<input type="button" value="회원 가입" name="btnSubmit" onclick="test()" class="buttonsignup">
+						<input type="button" value="회원 가입" name="btnSubmit" onclick="signup()" class="buttonsignup">
 
 					</td>
 				</tr>

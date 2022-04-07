@@ -35,6 +35,7 @@ import com.betterhip.command.payment.PaymentCommand;
 import com.betterhip.command.payment.PaymentListCommand;
 import com.betterhip.command.payment.PaymentSuccessCommand;
 import com.betterhip.command.signup.SignUpCheckIdCommand;
+import com.betterhip.command.signup.SignUpCheckPhoneCommand;
 import com.betterhip.command.signup.SignUpCommand;
 
 /**
@@ -238,6 +239,12 @@ public class BetterhipHomeController extends HttpServlet {
 			command = new SignUpCheckIdCommand();
 			command.excute(request, response);
 			viewPage = "signupCheckIdResult.jsp";
+			break;
+
+		case("/signup/signupCheckPhone.do") :
+			command = new SignUpCheckPhoneCommand();
+			command.excute(request, response);
+			viewPage = "signupCheckPhoneResult.jsp";
 			break;
 			
 		case("/loginForm.do") :

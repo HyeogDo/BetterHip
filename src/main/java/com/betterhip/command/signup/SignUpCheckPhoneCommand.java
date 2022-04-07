@@ -9,13 +9,13 @@ import com.betterhip.dao.signup.SignUpDao;
 import com.betterhip.dto.signup.SignupCheckIdDto;
 import com.mysql.cj.Session;
 
-public class SignUpCheckIdCommand implements BetterhipCommand {
+public class SignUpCheckPhoneCommand implements BetterhipCommand {
 
 	@Override
 	public void excute(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		
-		String user_id = request.getParameter("user_id");
+		String user_phone = request.getParameter("user_phone");
 		
 		SignUpDao dao = new SignUpDao();
 		SignupCheckIdDto dto = dao.signupCheckId(user_id);
