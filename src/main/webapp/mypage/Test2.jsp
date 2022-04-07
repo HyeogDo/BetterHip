@@ -22,7 +22,7 @@
 	회원정보 수정 정말로 하실겁니까? 
 	----------------------------- <br> 
 	
-	<form action="userInfoModifyView.do"> 
+	<form action="userInfoDeleteView.do"> 
 	
 		<input type="submit" value="확인"> 
 	

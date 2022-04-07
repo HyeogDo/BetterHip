@@ -22,9 +22,8 @@ import com.betterhip.command.mypage.PurchaseCancelCommand;
 import com.betterhip.command.mypage.PurchaseCancelListCommand;
 import com.betterhip.command.mypage.PurchaseListCommand;
 import com.betterhip.command.mypage.UserInfoDeleteCommand;
-import com.betterhip.command.mypage.UserInfoDeleteViewCommand;
 import com.betterhip.command.mypage.UserInfoModifyCommand;
-import com.betterhip.command.mypage.UserInfoModifyViewCommand;
+import com.betterhip.command.mypage.UserInfoViewCommand;
 import com.betterhip.command.order.CakeChoiceCommand;
 import com.betterhip.command.order.CakeListViewCommand;
 import com.betterhip.command.order.CakeOrderCartCommand;
@@ -79,10 +78,13 @@ public class BetterhipHomeController extends HttpServlet {
 		String uri = request.getRequestURI();
 		String conPath = request.getContextPath();		
 		String com = uri.substring(conPath.length());
+		
+		//오류 확인용 출력문 
 		System.out.println(com);
+		
 		switch(com) {
 		
-		//테스트용
+		//강진영 테스트용
 		case("/test.do") :
 			viewPage = "mypage/Test1.jsp"; 
 			break; 
@@ -123,11 +125,11 @@ public class BetterhipHomeController extends HttpServlet {
 			viewPage = "mypage/purchaseList.jsp";
 			break;
 			
-			//수정페이지에서 회원 정보 view
+			//회원정보 변경 메인 
 		case("/mypage/userInfoModifyView.do") :
-			command = new UserInfoModifyViewCommand();
+			command = new UserInfoViewCommand();
 			command.excute(request, response);
-			viewPage = "userInfoView.jsp";
+			viewPage = "userInfoModifyView.jsp";
 			break;
 		
 		case("/userInfoModify.do") :
@@ -136,10 +138,11 @@ public class BetterhipHomeController extends HttpServlet {
 			viewPage = "userInfoModifyView.do";
 			break;
 			
-		case("/userInfoDeleteView.do") :
-			command = new UserInfoDeleteViewCommand();
+			//회원탈퇴 메인 
+		case("/mypage/userInfoDeleteView.do") :
+			command = new UserInfoViewCommand();
 			command.excute(request, response);
-			viewPage = "mypage/userInforDeleteView.jsp";
+			viewPage = "userInfoDeleteView.jsp";
 			break;
 			
 		case("/userInfoDelete.do") :

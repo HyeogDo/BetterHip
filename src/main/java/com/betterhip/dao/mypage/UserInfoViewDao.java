@@ -38,7 +38,7 @@ public class UserInfoViewDao {
 	
 	//method 
 	
-	public UserInfoDto userInfoModifyView(String LoginId){
+	public UserInfoDto userInfoView(String LoginId){
 		
 		
 		UserInfoDto dto = null;
@@ -89,7 +89,7 @@ public class UserInfoViewDao {
 		
 		
 		
-	}//modifyview()
+	}//userinfoview()
 	
 	
 	

@@ -165,7 +165,7 @@
 				<label for="check_3">마케팅 수신 동의</label><br>
 			</div>
 		
-		<!-- 알럿 띄우기  -->
+		
 			<input type="submit" name="userInfoModify" value="수정">
 	
 		</form>

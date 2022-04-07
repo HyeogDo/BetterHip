@@ -10,7 +10,7 @@ import com.betterhip.dao.mypage.UserInfoViewDao;
 import com.betterhip.dto.mypage.UserInfoDto;
 
 
-public class UserInfoModifyViewCommand implements BetterhipCommand {
+public class UserInfoViewCommand implements BetterhipCommand {
 
 	@Override
 	public void excute(HttpServletRequest request, HttpServletResponse response) {
@@ -19,9 +19,8 @@ public class UserInfoModifyViewCommand implements BetterhipCommand {
 		HttpSession session = request.getSession();
 		String LoginId = (String) session.getAttribute("LoginId"); 
 		
-//		String LoginId = request.getParameter("user_id");
 		UserInfoViewDao dao = new UserInfoViewDao();
-		UserInfoDto dto = dao.userInfoModifyView(LoginId); 
+		UserInfoDto dto = dao.userInfoView(LoginId); 
 		request.setAttribute("userInfo", dto);
 		
 		
