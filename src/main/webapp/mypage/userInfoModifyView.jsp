@@ -111,7 +111,7 @@
 					<td>비밀번호</td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="password" name="user_pw" size="41" value="${userInfo.user_pw }"></td>
+					<td colspan="2"><input type="password" name="user_pw" size="41" value="${userInfo.user_pw }" readonly="readonly"></td>
 				</tr>
 				<tr>
 					<td>새 비밀번호</td>

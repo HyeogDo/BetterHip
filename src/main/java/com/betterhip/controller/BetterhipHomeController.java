@@ -126,10 +126,10 @@ public class BetterhipHomeController extends HttpServlet {
 			break;
 			
 			//회원정보 변경 메인 
-		case("/mypage/userInfoModifyView.do") :
+		case("/userInfoModifyView.do") :
 			command = new UserInfoViewCommand();
 			command.excute(request, response);
-			viewPage = "userInfoModifyView.jsp";
+			viewPage = "mypage/userInfoModifyView.jsp";
 			break;
 		
 		case("/userInfoModify.do") :
@@ -146,10 +146,10 @@ public class BetterhipHomeController extends HttpServlet {
 			break;
 			
 			//회원탈퇴 
-		case("/mypage/userInfoDelete.do") :
+		case("userInfoDelete.do") :
 			command = new UserInfoDeleteCommand();
 			command.excute(request, response);
-			viewPage = "goodbye.jsp";
+			viewPage = "mypage/goodbye.jsp";
 			break;
 			
 		case("/cakeListView.do") :

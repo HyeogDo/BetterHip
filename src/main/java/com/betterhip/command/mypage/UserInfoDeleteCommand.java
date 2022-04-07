@@ -13,8 +13,14 @@ public class UserInfoDeleteCommand implements BetterhipCommand {
 	public void excute(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 
-		HttpSession session = request.getSession();
-		String USER_ID = (String) session.getAttribute("USER_ID"); 
+		
+		//겟파라미터로 받을 때 
+		String USER_ID = request.getParameter("user_id");
+		
+		//세션으로 받을 때 
+//		HttpSession session = request.getSession();
+//		String USER_ID = (String) session.getAttribute("USER_ID"); 
+		
 		UserInfoDao dao = new UserInfoDao();
 		dao.userInfoDelete(USER_ID);
 		

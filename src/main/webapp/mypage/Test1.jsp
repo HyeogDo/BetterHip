@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<form action="mypage/Test2.jsp" method="post"> 
+	<form action="userInfoModifyView.do" method="post"> 
 	
 	아이디를 입력하세요. <br><br> 
 	
