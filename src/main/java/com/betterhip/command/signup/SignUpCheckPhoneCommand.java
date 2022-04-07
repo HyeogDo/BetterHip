@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import com.betterhip.command.BetterhipCommand;
 import com.betterhip.dao.signup.SignUpDao;
 import com.betterhip.dto.signup.SignupCheckIdDto;
+import com.betterhip.dto.signup.SignupCheckPhoneDto;
 import com.mysql.cj.Session;
 
 public class SignUpCheckPhoneCommand implements BetterhipCommand {
@@ -18,7 +19,7 @@ public class SignUpCheckPhoneCommand implements BetterhipCommand {
 		String user_phone = request.getParameter("user_phone");
 		
 		SignUpDao dao = new SignUpDao();
-		SignupCheckIdDto dto = dao.signupCheckId(user_id);
+		SignupCheckPhoneDto dto = dao.signupCheckPhone(user_phone);
 		HttpSession session = request.getSession();
 		
 		if (dto.getUser_id() == null) {

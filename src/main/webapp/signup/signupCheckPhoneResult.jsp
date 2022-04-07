@@ -12,9 +12,9 @@
 	<%
 		String result = session.getAttribute("RESULT").toString();
 		if (result.equals("Possible")) {
-			%>사용 가능한 아이디 입니다!!<%
+			%>사용 가능한 전화번호 입니다!!<%
 		} else {
-			%>이미 사용 중인 아이디 입니다!!<%
+			%>이미 사용 중인 전화번호 입니다!!<%
 		}
 	%>
 </body>
