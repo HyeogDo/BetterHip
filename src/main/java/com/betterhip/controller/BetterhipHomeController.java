@@ -141,10 +141,10 @@ public class BetterhipHomeController extends HttpServlet {
 			viewPage = "mypage/goodbye.jsp";
 			break;
 			
-		case("/cakeListView.do") :
+		case("/main/cakeListView.do") :
 			command = new CakeListViewCommand();
 			command.excute(request, response);
-			viewPage = "order/cakeList.jsp";
+			viewPage = "../order/cakeList.jsp";
 			break;
 			
 		case("/cakeChoice.do") :
