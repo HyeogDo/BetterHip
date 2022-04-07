@@ -41,7 +41,7 @@ public class LoginCommand implements BetterhipCommand {
 		case 2 :
 			message = "success";
 			viewPage = "main.do";
-			session.setAttribute("user_id", user_id); // 로그인 성공 시 user_id 정보생성			
+			session.setAttribute("USER_ID", user_id); // 로그인 성공 시 user_id 정보생성			
 			break;
 			
 		case 1 :

@@ -274,6 +274,11 @@ public class BetterhipHomeController extends HttpServlet {
 			command.excute(request, response);
 			viewPage = "login/printPw.jsp";
 			break;
+		// --------------------------Test -----------------------
+		case("/test.do") :
+			viewPage = "test.jsp";
+			break;
+			
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
