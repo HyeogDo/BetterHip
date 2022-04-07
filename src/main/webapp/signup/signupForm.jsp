@@ -429,7 +429,6 @@ const autoHyphen2 = (target) => {
 				</tr>
 			</table>
 			<br>
-			<input type="text" value=<%=session.getAttribute("RESULT_ID") %>>
 		</form>
 	</div>
 </body>
