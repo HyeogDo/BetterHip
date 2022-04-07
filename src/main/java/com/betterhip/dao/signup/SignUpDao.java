@@ -9,6 +9,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.betterhip.dto.signup.SignupCheckIdDto;
+import com.betterhip.dto.signup.SignupCheckPhoneDto;
 
 public class SignUpDao {
 	
@@ -115,6 +116,46 @@ public class SignUpDao {
 		return dto;
 	}
 	
-	
+	public SignupCheckPhoneDto signupCheckPhone(String user_phone) {
+		SignupCheckPhoneDto dto = null;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			connection = dataSource.getConnection();
+			
+			//데이터베이스 입력문
+			String query = "select user_phone from user where user_phone=?";
+			preparedStatement = connection.prepareStatement(query);
+			//입력문 안에 들어갈 변수 설정
+			preparedStatement.setString(1, user_phone);
+			System.out.println(user_phone);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			if(!resultSet.next()) {
+				user_phone = null;
+			}
+			
+			dto = new SignupCheckPhoneDto(user_phone);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			// 닫아주기
+			try {
+				if (resultSet != null) resultSet.close();
+				if (preparedStatement != null) preparedStatement.close();
+				if (connection != null) connection.close();
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}
+		return dto;
+	}
 	
 }

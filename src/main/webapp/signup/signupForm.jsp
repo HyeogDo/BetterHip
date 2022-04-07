@@ -109,7 +109,7 @@ const autoHyphen2 = (target) => {
 <!-- 전화번호 중복 확인 -->
 <script type="text/javascript">
 	function checkPhone() {
-		var regExpPhone = /^\d{3}\d{3,4}\d{4}$/
+		var regExpPhone = /^\d{3}-\d{3,4}-\d{4}$/
 		var form = document.signupForm
 		
 		// 핸드폰 번호 확인
@@ -123,7 +123,7 @@ const autoHyphen2 = (target) => {
 				form.user_phone.select()
 				return
 			} else {
-				isCheckedId = true
+				isCheckedPhone = true
 				window.open("http://localhost:9413/BetterHip/signup/signupCheckPhone.do?user_phone=" + user_phone,"","width=500, height=300, left=500, top=150");
 			}
 		} 
@@ -214,7 +214,11 @@ const autoHyphen2 = (target) => {
 			alert("아이디 중복체크를 해주세요")
 			return
 		}
-
+		// 핸드폰 번호 중복체크 확인 여부
+		if(isCheckedPhone == false) {
+			alert("핸드폰 번호 중복체크를 해주세요")
+			return
+		}
 		document.signupForm.submit();
 	}
 </script>
@@ -370,7 +374,7 @@ const autoHyphen2 = (target) => {
 				</tr>
 				<tr>
 					<td><input type="text" name="user_phone" oninput="autoHyphen2(this)" maxlength="13"placeholder="ex) 010-6603-0058"> 
-					<input type="button" size="20" value="중복확인"></td>
+					<input type="button" size="20" value="중복확인" onclick="checkPhone()"></td>
 				</tr>
 				<tr>
 					<td>주소</td>
