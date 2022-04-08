@@ -33,6 +33,7 @@ import com.betterhip.command.order.CakeReviewWriteCommand;
 import com.betterhip.command.payment.PaymentCommand;
 import com.betterhip.command.payment.PaymentListCommand;
 import com.betterhip.command.payment.PaymentSuccessCommand;
+import com.betterhip.command.signup.SignUpCheckIdCommand;
 import com.betterhip.command.signup.SignUpCommand;
 
 /**
@@ -64,12 +65,10 @@ public class BetterhipHomeController extends HttpServlet {
 		actionDo(request, response);
 	}
 	
-	
 	private void actionDo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
 		System.out.println("actionDo");
 		response.setCharacterEncoding("UTF-8");
+		
 		HttpSession session = request.getSession();
 		
 		String viewPage = null;
@@ -79,16 +78,7 @@ public class BetterhipHomeController extends HttpServlet {
 		String conPath = request.getContextPath();		
 		String com = uri.substring(conPath.length());
 		
-		//오류 확인용 출력문 
-		System.out.println(com);
-		
 		switch(com) {
-		
-		//강진영 테스트용
-		case("/test.do") :
-			viewPage = "mypage/Test1.jsp"; 
-			break; 
-		
 		case("/main.do") :
 			command = new CakeAdCommand();
 			command.excute(request, response);
@@ -128,9 +118,9 @@ public class BetterhipHomeController extends HttpServlet {
 		case("/userInfoModifyView.do") :
 			command = new UserInfoViewCommand();
 			command.excute(request, response);
-			viewPage = "mypage/userInfoModifyView.jsp";
+			viewPage = "mypage/userInfoView.jsp";
 			break;
-		
+			
 		case("/userInfoModify.do") :
 			command = new UserInfoModifyCommand();
 			command.excute(request, response);
@@ -237,12 +227,18 @@ public class BetterhipHomeController extends HttpServlet {
 			viewPage = "signup/signupForm.jsp";
 			break;
 		
-		case("/signup.do") :
+		case("/signup/signup.do") :
 			command = new SignUpCommand();
 			command.excute(request, response);
-			viewPage = "signup/signupResult.jsp";
+			viewPage = "signupResult.jsp";
 			break;
 		
+		case("/signup/signupCheckId.do") :
+			command = new SignUpCheckIdCommand();
+			command.excute(request, response);
+			viewPage = "signupCheckIdResult.jsp";
+			break;
+			
 		case("/loginForm.do") :
 			viewPage = "login/login.jsp";
 			break;
@@ -277,7 +273,6 @@ public class BetterhipHomeController extends HttpServlet {
 			viewPage = "login/printPw.jsp";
 			break;
 		}
-		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 				
