@@ -24,16 +24,21 @@ public class PaymentDao {
 		}
 	}
 	
-	public void paySuccess(String purchase_id, String purchase_kakao_id) {
+	
+	//--------------------------------paySuccess-------------------------------------------
+	
+	// 매서드 내용 결재 성공시 user_id와 purchase_kakao_id를 가져와 해당user_id에 purchase_status가 2인 곳에 purchase_status를 3으로,purchase_kakao_id를 가져온 값으로,purchase_date를 지금으로 수정함
+	
+	public void paySuccess(String user_id, String purchase_kakao_id) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 		try {
 			connection = dateSource.getConnection();
-			String query = "update purchase set purchase_status = '결제완료', purchase_kakao_id = ?, purchase_date = now() where purchase_id = ?";
+			String query = "update purchase,user set purchase_status='3', purchase_kakao_id=?, purchase_date=now() where user_id=purchase_user_id and user_id=? and purchase_status='2'";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, purchase_kakao_id);
-			preparedStatement.setString(2, purchase_id);
+			preparedStatement.setString(2, user_id);
 			
 			preparedStatement.executeUpdate();
 			
@@ -48,6 +53,41 @@ public class PaymentDao {
 			}
 		}
 	} // paySuccess()
+	
+	
+	//-----------------payFailure---------
+	
+	// 매서드 내용 결제 실패시 해당 user_id에 purchase_status가 2인 곳에 purchase_status를 1로 수정하는 매서드
+	
+	public void payFailure(String user_id) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			connection = dateSource.getConnection();
+			String query = "update purchase,user set purchase_status='1' where user_id=purchase_user_id and user_id=? and purchase_status='2'";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, user_id);
+			
+			preparedStatement.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(preparedStatement != null) preparedStatement.close();
+				if(connection != null) connection.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	} // paySuccess()
+	
+	
+	
+	//-----------------------paymentList-----------------------
+	
+	//매서드 내용 해당 user_id의 purchase_status가 2인 주문의 내용을 리스트로 내보내는 매서드
 		
 	public ArrayList<PaymentDto> paymentList(String user_id) {
 		ArrayList<PaymentDto> dtos = new ArrayList<PaymentDto>();
@@ -92,8 +132,8 @@ public class PaymentDao {
 		return dtos;
 	} // paymentList()
 	
-
-	//-------------------------사용중	
+// 매서드 내용 user_id로 해당 유저의 정보(name, phone, email)을 가져오는 매서드
+	
 	public PaymentDto paymentUserList(String user_id) {
 		PaymentDto dto = null;
 		Connection connection = null;
@@ -130,7 +170,7 @@ public class PaymentDao {
 		return dto;	
 	}// PaymentUserList()	
 		
-	//---------------사용중
+	// 매서드 내용 user_id에 해당하는 유저의  purchase_status가 2인 주문들의 purchase_price 합을 가져오는 매서드 
 	
 	public int paymentPriceList(String user_id) {
 		int total_price =0;
@@ -169,30 +209,28 @@ public class PaymentDao {
 	
 	
 	
-		
-		
-		
-	public ArrayList<PaymentDto> payment(int purchase_id) {
-		ArrayList<PaymentDto> dtos = new ArrayList<PaymentDto>();
+	//----------------------------------payment method-----------------------------------
+	
+	
+	// 매서드 내용 user_id로 해당 유저의 name,email,phone,address,address_detail,postcode 등을 가져오는 매서드
+	
+	public PaymentDto paymentUser(String user_id) {
+		PaymentDto dto = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		
 		try {
 			connection = dateSource.getConnection();
-			String query = "select cake_name, user_name, user_phone, user_email, user_address, user_address_detail, user_postcode, purchase_price, purchase_quantity from cake, user, purchase where cake_id =(select purchase_cake_id from purchase where purchase_id= ?) and user_id =(select purchase_user_id from purchase where purchase_id= ?) and purchase_id = ?";
+			String query = "select user_name, user_email, user_phone, user_address, user_address_detail, user_postcode from user where user_id=?";
+			
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setInt(1, purchase_id);
-			preparedStatement.setInt(2, purchase_id);
-			preparedStatement.setInt(3, purchase_id);
+			preparedStatement.setString(1, user_id);
 			resultSet = preparedStatement.executeQuery();
 			
 			System.out.println("dao");
 			
 			while(resultSet.next()) {
-				int purchase_price = resultSet.getInt("purchase_price");
-				int purchase_quantity = resultSet.getInt("purchase_quantity");
-				String cake_name = resultSet.getString("cake_name");
 				String user_name = resultSet.getString("user_name");
 				String user_phone = resultSet.getString("user_phone");
 				String user_email = resultSet.getString("user_email");
@@ -201,11 +239,8 @@ public class PaymentDao {
 				String user_postcode = resultSet.getString("user_postcode");
 				
 				
-				PaymentDto dto = new PaymentDto(purchase_price, purchase_quantity, cake_name, user_name, user_phone, user_address, user_address_detail, user_postcode, user_email);
-				dtos.add(dto);
-			}
-			
-			
+				dto = new PaymentDto(user_name, user_phone, user_address, user_address_detail, user_postcode, user_email);
+			}		
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -216,9 +251,85 @@ public class PaymentDao {
 				e.printStackTrace();
 			}
 		}
-		return dtos;
-	} // payment()
+		return dto;	
+	}// PaymentUser()	
+	
+	
+	// 매서드 내용 user_id에 해당하는 유저가 결제할 케이크 하나의 이름과 주문 수량을 가져오는 매서드
 		
+	public PaymentDto paymentCake(String user_id) {
+		PaymentDto dto = null;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			connection = dateSource.getConnection();
+			String query = "select cake_name, purchase_quantity from cake, purchase, user where user_id=purchase_user_id and cake_id=purchase_cake_id and user_id=? limit 1";
+			
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, user_id);
+			resultSet = preparedStatement.executeQuery();
+			
+			System.out.println("dao");
+			
+			while(resultSet.next()) {
+				String cake_name = resultSet.getString("cake_name");
+				int purchase_quantity = resultSet.getInt("purchase_quantity");
+				
+				
+				dto = new PaymentDto(purchase_quantity, cake_name);
+			}		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(preparedStatement != null) preparedStatement.close();
+				if(connection != null) connection.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return dto;	
+	}// PaymentUser()	
+		
+	
+	// 매서드 내용 user_id에 해당하는 주문 건수를 가져오는 매서드
+
+	public int paymentCount(String user_id) {
+		int purchase_count =0;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			connection = dateSource.getConnection();
+			String query = "select count(purchase_id)as purchase_count from purchase, user where user_id=purchase_user_id and user_id=? and purchase_status='2'";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, user_id);
+			resultSet = preparedStatement.executeQuery();
+			
+			System.out.println("dao");
+			
+			
+			while(resultSet.next()) {
+				purchase_count = resultSet.getInt("purchase_count");
+				
+				
+			}
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(preparedStatement != null) preparedStatement.close();
+				if(connection != null) connection.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return purchase_count;
+	}//paymentCount
 		
 
 		

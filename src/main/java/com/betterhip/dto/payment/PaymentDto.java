@@ -44,8 +44,6 @@ public class PaymentDto {
 	int customize_saleprice;
 	int customize_cost;
 	
-	int total_price;
-	
 	// Constructor
 	public PaymentDto() {
 		// TODO Auto-generated constructor stub
@@ -59,15 +57,6 @@ public class PaymentDto {
 		this.user_email = user_email;
 	}	
 	
-	
-	
-	
-
-	public PaymentDto(int total_price) {
-		super();
-		this.total_price = total_price;
-	}
-
 
 	public PaymentDto(int purchase_price, int purchase_quantity, String cake_name, String customize_taste,
 			String customize_size, String customize_cream_type, String customize_cream_color) {
@@ -120,6 +109,26 @@ public class PaymentDto {
 	
 	
 	
+
+
+	public PaymentDto(int purchase_quantity, String cake_name) {
+		super();
+		this.purchase_quantity = purchase_quantity;
+		this.cake_name = cake_name;
+	}
+
+
+	public PaymentDto(String user_name, String user_phone, String user_address, String user_address_detail,
+			String user_postcode, String user_email) {
+		super();
+		this.user_name = user_name;
+		this.user_phone = user_phone;
+		this.user_address = user_address;
+		this.user_address_detail = user_address_detail;
+		this.user_postcode = user_postcode;
+		this.user_email = user_email;
+	}
+
 
 	// Method
 	public int getPurchase_id() {
@@ -406,3 +415,4 @@ public class PaymentDto {
 
 
 }
+

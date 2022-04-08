@@ -11,8 +11,30 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
+<%
+String user_id=request.getParameter("user_id");
+
+%>
 	<div class="test" id="test11" data-idx="12"></div>
     <script>
+    var purchase_count_msg="" // 주문 수에 따른 문구
+    var purchase_count_num='${purchase_count}' // 주문 수
+    
+    var cake_count_msg="" // 케이크 수에 따른 문구
+    
+    // 주문 수가 2개 이상일 경우
+    if('${purchase_count}'>1){
+    	purchase_count_num=purchase_count_num-1
+    	purchase_count_msg=' 외 '+purchase_count_num+'건'
+    }
+    
+    // 케이크 수가 2개 이상일 경우
+    if('${paymentCake.purchase_quantity}'>1){
+    	cake_count_msg=' ${paymentCake.purchase_quantity}개'
+    }
+  
+    
+    
     console.log($('#test11').data('idx'))
     $(function(){
         var IMP = window.IMP; // 생략가능
@@ -23,13 +45,13 @@
             pg : 'kakaopay',
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
-            name : ''+${dto.cake_name}+' '+${purchase_quantity}+'개',
-            amount : ${dto.purchase_price},
-            buyer_email : ''+${dto.user_email}+'',
-            buyer_name : ''+${dto.user_name}+'',
-            buyer_tel : ''+${dto.user_phone}+'',
-            buyer_addr : ''+${dto.user_address}+${dto.user_address_detail}+'',
-            buyer_postcode : ''+${dto.user_postcode}+'',
+            name : '${paymentCake.cake_name}'+cake_count_msg+purchase_count_msg,
+            amount : '${total_price}',
+            buyer_email : '${paymentUser.user_email}',
+            buyer_name : '${paymentUser.user_name}',
+            buyer_tel : '${paymentUser.user_phone}',
+            buyer_addr : '${paymentUser.user_address} ${paymentUser.user_address_detail}',
+            buyer_postcode : '${paymentUser.user_postcode}',
             //m_redirect_url : 'http://www.naver.com'
         }, function(rsp) {
             if ( rsp.success ) {
@@ -58,17 +80,12 @@
                     }
                 });
                 //성공시 이동할 페이지
-
-                
-                
-            //    location.href='paySuccess.jsp?purchase_kakao_id='+rsp.merchant_uid+''
-                location.href='paySuccess.do?user_id='+${user_id}+'&purchase_kakao_id='+rsp.merchant_uid+''
+                location.href='paySuccess.do?user_id=<%=user_id%>&purchase_kakao_id='+rsp.merchant_uid+''
             } else {
                 msg = '결제에 실패하였습니다.';
                 msg += '에러내용 : ' + rsp.error_msg;
                 //실패시 이동할 페이지
-                location.href="payFailure.do";
-                alert(msg);
+                location.href='payFailure.do?user_id=<%=user_id%>';
             }
         });
         
