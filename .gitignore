@@ -1,7 +1,14 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,eclipse,java
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,eclipse,java
 
+*/target/*
+.idea
+classes/
+META_INF/
+WEB-INF/
+
 ### Eclipse ###
+
 .metadata
 bin/e
 tmp/
@@ -19,9 +26,10 @@ local.properties
 
 # JDT-specific (Eclipse Java Development Tools) 
 .classpath 
-
 #ignoring the files within these folder 
 build/
+/build/
+/bin/
 Build/
 /classes/
 
