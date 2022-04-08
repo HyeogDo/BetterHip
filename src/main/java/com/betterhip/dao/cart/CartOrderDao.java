@@ -23,9 +23,9 @@ DataSource dataSource;
 		}
 	}
 	
-	public void cartOrder(String[] orderList) {
+	public String cartOrder(String[] orderList) {
 		
-		
+		String orderResult = null;
 		
 		Connection connection = null;		
 		PreparedStatement preparedStatement = null;
@@ -44,17 +44,11 @@ DataSource dataSource;
 			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(query);
 			resultSet = preparedStatement.executeQuery();
-			
-			//---------------------------------- 수정필요
-			if(resultSet != null) {
-				System.out.println("update");
-			}else {
-				System.out.println("fail");
-			}
-			
-						
+			orderResult = "success";
+		
 		}catch (Exception e) {
 			e.printStackTrace();
+			orderResult = "fail";
 		}finally {
 			try {
 				if(resultSet != null) resultSet.close();
@@ -63,10 +57,11 @@ DataSource dataSource;
 				
 			}catch (Exception e) {
 				e.printStackTrace();
+				orderResult = "fail";
 			}
 		}
 		
-		
-	}
+		return orderResult;
+	} // cartOrder
 
-}
+} // CartOrderDao

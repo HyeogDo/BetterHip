@@ -189,10 +189,11 @@ public class BetterhipHomeController extends HttpServlet {
 			viewPage = "cartList.do";
 			break;
 			
+			// 수정했음--------------------------------------------------
 		case("/cartOrder.do") :
 			command = new CartOrderCommand();
 			command.excute(request, response);
-			viewPage = "paymentList.do";
+			viewPage = request.getAttribute("viewPage").toString();
 			break;
 			
 		case("/paymentList.do") :
