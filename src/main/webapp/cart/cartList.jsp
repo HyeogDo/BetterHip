@@ -17,19 +17,29 @@
 </head>
 <script type="text/javascript">
 
-	function onClick(){
-		
+	function cartOrder() {
+		document.list.action ="cartOrder.do"
+		document.list.submit()
+		alert("1")
+
+	}
+	
+	function cartDelete() {
+		document.list.action="cartDelete.do"
+		document.list.submit()
+		alert("2")
+	
 	}
 
 
 </script>
 
 <body>
-	<form action="cartOrder.do" method="get">
+	<form name="list" method="get">
 		<table>			
 			<c:forEach var="item" items="${CartList}">
 				<tr>
-			
+			        <td><img src="${item.purchase_cake_img}" alt=""/></td>
 					<td><input type="checkbox" name="chk" value="${item.purchase_id}"></td>
 					<td><c:out value = "${item.purchase_cake_name }"/></td>
 				
@@ -38,7 +48,8 @@
 				    
 			</c:forEach>
 		</table>
-		<input type="submit" value="구매"> 
+		<input type="button" onclick="cartOrder()" value="구매">
+		<input type="button" onclick="cartDelete()" value="삭제">
 		
 	</form>
 

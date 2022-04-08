@@ -80,6 +80,7 @@ public class BetterhipHomeController extends HttpServlet {
 		String conPath = request.getContextPath();		
 		String com = uri.substring(conPath.length());
 		
+		System.out.println("com : " + com);		
 		switch(com) {
 		case("/main.do") :
 			command = new CakeAdCommand();
@@ -178,11 +179,13 @@ public class BetterhipHomeController extends HttpServlet {
 			break;
 			
 		case("/cartList.do") :
+			System.out.println("cartList call");
 			command = new CartListCommand();
 			command.excute(request, response);
 			viewPage = "cart/cartList.jsp";
 			break;
 			
+			// <<<<------------------------------------ 수정했움
 		case("/cartDelete.do") :
 			command = new CartDeleteCommand();
 			command.excute(request, response);

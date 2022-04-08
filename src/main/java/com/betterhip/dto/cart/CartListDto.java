@@ -14,14 +14,14 @@ public class CartListDto {
 	String purchase_custom_cream_color;
 	String purchase_text;
 	String purchase_cake_name;
-	Blob purchase_cake_img;
+	byte[] purchase_cake_img;
 	
 	
 	// Constructor
 	
 	public CartListDto(int purchase_id, int purchase_quantity, int purchase_price, String purchase_custom_size,
 			String purchase_custom_taste, String purchase_custom_cream_type, String purchase_custom_cream_color,
-			String purchase_text, String purchase_cake_name, Blob purchase_cake_img) {
+			String purchase_text, String purchase_cake_name, byte[] purchase_cake_img) {
 		super();
 		this.purchase_id = purchase_id;
 		this.purchase_quantity = purchase_quantity;
@@ -128,12 +128,12 @@ public class CartListDto {
 	}
 
 
-	public Blob getPurchase_cake_img() {
+	public byte[] getPurchase_cake_img() {
 		return purchase_cake_img;
 	}
 
 
-	public void setPurchase_cake_img(Blob purchase_cake_img) {
+	public void setPurchase_cake_img(byte[] purchase_cake_img) {
 		this.purchase_cake_img = purchase_cake_img;
 	}
 	

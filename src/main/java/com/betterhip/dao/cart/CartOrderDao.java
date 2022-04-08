@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 
 public class CartOrderDao {
 	
-DataSource dataSource;
+	DataSource dataSource;
 	
 	// Constructor
 	public CartOrderDao() {
@@ -35,7 +35,7 @@ DataSource dataSource;
 			
 			String query = "update purchase set purchase_status = 2 where ";
 			for(int i=0; i<orderList.length; i++ ) {
-				query += "purchase_id = " + Integer.parseInt(orderList[i]);
+				query += "purchase_id = " + orderList[i];
 				if(i < (orderList.length -1)) {
 					query += " or ";
 				}

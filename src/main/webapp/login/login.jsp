@@ -114,6 +114,7 @@ function kakaoLogout() {
 	    	<input type="button" onclick="kakaoLogin()" value="카카오 로그인" style="height: 40px;width: 408px;background-color:#ffd400;font-size:15px;font-weight:bold;"><br>
 	    </form>
 	</div>
+	<a href="../BetterHip/signupForm.do" >회원가입</a>
 
 
 </body>

@@ -6,9 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+
+import org.apache.tomcat.util.codec.binary.Base64;
 
 import com.betterhip.dto.cart.CartListDto;
 
@@ -57,7 +60,10 @@ public class CartListDao {
 				String purchase_custom_cream_color = resultSet.getString("customize_cream_color");
 				String purchase_text = resultSet.getString("purchase_text");
 				String purchase_cake_name = resultSet.getString("cake_name");
-				Blob purchase_cake_img = resultSet.getBlob("cake_img");
+				Blob purchase_cake_img_blob = resultSet.getBlob("cake_img");
+				
+				byte[] imageData = purchase_cake_img_blob.getBytes(1,(int)purchase_cake_img_blob.length());
+				byte[] purchase_cake_img = Base64.encodeBase64(imageData, false);
 				
 				CartListDto dto = new CartListDto(purchase_id, purchase_quantity, purchase_price, 
 												purchase_custom_size, Pruchase_custom_taste, purchase_custom_cream_type, 
