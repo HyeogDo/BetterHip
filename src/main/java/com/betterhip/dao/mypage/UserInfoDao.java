@@ -10,14 +10,11 @@ import javax.sql.DataSource;
 public class UserInfoDao {
 
 	
-	
-	//field 
-	
+//-------------------field--------------------- 
 	
 		DataSource dataSource; 	
-		
 	
-	//constructor 
+//-------------------constructor----------------
 		
 		public UserInfoDao() {
 			
@@ -32,10 +29,10 @@ public class UserInfoDao {
 			}	
 		}
 		
+//------------------method---------------------  
 		
-	//method 
 		
-		
+		//회원 탈퇴 
 		public void userInfoDelete(String USER_ID) {
 			
 			Connection connection = null; 
@@ -50,13 +47,12 @@ public class UserInfoDao {
 				
 				preparedStatement.executeUpdate();
 				
-				//오류메세지 출력 
+				
 			} catch (Exception e) {
 				e.printStackTrace();
-			//메모리 정리 해주는 게 좋기 때문에 finally 필요 
+				
 			}finally {
 				try {
-					//보통 연 순서의 역으로 닫음 
 					if(preparedStatement != null) preparedStatement.close();
 					if(connection != null) connection.close();
 				}catch(Exception e) {
@@ -68,6 +64,8 @@ public class UserInfoDao {
 		}//userInfoDelete()
 		
 		
+		
+		//회원 정보 수정 
 		public void userInfoModify(String USER_ID, String new_user_pw, String user_name, String user_email, String user_phone, String user_postcode, String user_address, String user_address_detail) {
 			
 			Connection connection = null; 
@@ -89,13 +87,12 @@ public class UserInfoDao {
 				
 				preparedStatement.executeUpdate();
 				
-				//오류메세지 출력 
 			} catch (Exception e) {
 				e.printStackTrace();
-			//메모리 정리 해주는 게 좋기 때문에 finally 필요 
+		
 			}finally {
 				try {
-					//보통 연 순서의 역으로 닫음 
+					
 					if(preparedStatement != null) preparedStatement.close();
 					if(connection != null) connection.close();
 				}catch(Exception e) {
@@ -108,4 +105,4 @@ public class UserInfoDao {
 		}//userInfoModify
 		
 	
-}//userinfoDao 
+}//usInfoDao 

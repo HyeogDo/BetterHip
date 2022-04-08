@@ -7,19 +7,17 @@
 <head>
 <meta charset="UTF-8">
 <title>회원탈퇴</title>
-</head>
 
+</head>
 
 <!--회원 탈퇴 컨펌 alert -->
 <script type="text/javascript">
 
-	function del(user_id) {
+	function del() {
 		if(confirm("정말로 탈퇴하시겠습니까?")) {
-			location.href = "userInfoDelete.do?user_id="+user_id;
-		}
-		
+			location.href = "userInfoDelete.do";
+		}		
 	}
-
 </script>
 
 
@@ -68,8 +66,8 @@
 			
 			</table>
 		
-		<!-- 알럿 띄우기  -->
-			<input type="button" value="회원 탈퇴" onclick="del(${userInfo.user_id})">
+		<!-- 회원 탈퇴 button  -->
+			<input type="button" value="회원 탈퇴" onclick="del()">
 	
 		</form>
 	

@@ -190,12 +190,14 @@ const autoHyphen2 = (target) => {
 			return
 		} */
 		
+		/* 위 유효성 검사 모두 통과 수정 완료 ALERT */
 		if(confirm("수정이 완료 되었습니다.")){
 			location.href = "userInfoModifyView.do";
 		}
 		
 		document.signupForm.submit();
 	}
+	
 </script>
 
 <!-- 주소 api 불러오기 -->

@@ -27,6 +27,8 @@ public class UserInfoModifyCommand implements BetterhipCommand {
 		String user_postcode = request.getParameter("user_postcode");
 		String user_address = request.getParameter("user_address");
 		String user_address_detail = request.getParameter("user_address_detail");
+		
+		//회원 정보 수정 
 		UserInfoDao dao = new UserInfoDao();
 		dao.userInfoModify(USER_ID, new_user_pw, user_name, user_email, user_phone, user_postcode, user_address, user_address_detail);
 		

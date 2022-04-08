@@ -14,13 +14,12 @@ import com.betterhip.dto.mypage.UserInfoDto;
 
 public class UserInfoViewDao {
 
-	
-	//field 
-	
+
+//-------------------field--------------------- 
 	
 	DataSource dataSource; 	
 
-	//constructor 
+//-------------------constructor----------------
 	
 	public UserInfoViewDao() {
 		
@@ -32,14 +31,13 @@ public class UserInfoViewDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 			
-		}
-		
+		}	
 		
 	}
+		
+//------------------method---------------------  
 	
-	
-	//method 
-	
+	//회원정보 불러오기 
 	public UserInfoDto userInfoView(String USER_ID){
 		
 		UserInfoDto dto = null;
@@ -73,10 +71,10 @@ public class UserInfoViewDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-		//메모리 정리 해주는 게 좋기 때문에 finally 필요 
+	
 		}finally {
 			try {
-				//보통 연 순서의 역으로 닫음 
+				
 				if(resultSet != null) resultSet.close();
 				if(preparedStatement != null) preparedStatement.close();
 				if(connection != null) connection.close();
@@ -90,8 +88,8 @@ public class UserInfoViewDao {
 		
 		
 		
-	}//userinfoview()
+	}//userInfoview()
 	
 	
 	
-}//dao 
+}//userInfoViewDao
