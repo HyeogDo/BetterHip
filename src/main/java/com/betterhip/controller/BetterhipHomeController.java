@@ -35,7 +35,6 @@ import com.betterhip.command.payment.PaymentCommand;
 import com.betterhip.command.payment.PaymentListCommand;
 import com.betterhip.command.payment.PaymentSuccessCommand;
 import com.betterhip.command.signup.SignUpCheckIdCommand;
-import com.betterhip.command.signup.SignUpCheckPhoneCommand;
 import com.betterhip.command.signup.SignUpCommand;
 
 /**
@@ -72,6 +71,7 @@ public class BetterhipHomeController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		HttpSession session = request.getSession();
+		session.setAttribute("message", "init");
 		
 		String viewPage = null;
 		BetterhipCommand command = null;
@@ -80,6 +80,7 @@ public class BetterhipHomeController extends HttpServlet {
 		String conPath = request.getContextPath();		
 		String com = uri.substring(conPath.length());
 		
+		System.out.println("com : " + com);		
 		switch(com) {
 		case("/main.do") :
 			command = new CakeAdCommand();
@@ -141,10 +142,10 @@ public class BetterhipHomeController extends HttpServlet {
 			viewPage = "mypage/goodbye.jsp";
 			break;
 			
-		case("/main/cakeListView.do") :
+		case("/cakeListView.do") :
 			command = new CakeListViewCommand();
 			command.excute(request, response);
-			viewPage = "../order/cakeList.jsp";
+			viewPage = "order/cakeList.jsp";
 			break;
 			
 		case("/cakeChoice.do") :
@@ -178,21 +179,24 @@ public class BetterhipHomeController extends HttpServlet {
 			break;
 			
 		case("/cartList.do") :
+			System.out.println("cartList call");
 			command = new CartListCommand();
 			command.excute(request, response);
 			viewPage = "cart/cartList.jsp";
 			break;
 			
+			// <<<<------------------------------------ 수정했움
 		case("/cartDelete.do") :
 			command = new CartDeleteCommand();
 			command.excute(request, response);
 			viewPage = "cartList.do";
 			break;
 			
+			// 수정했음--------------------------------------------------
 		case("/cartOrder.do") :
 			command = new CartOrderCommand();
 			command.excute(request, response);
-			viewPage = "paymentList.do";
+			viewPage = request.getAttribute("viewPage").toString();
 			break;
 			
 		case("/paymentList.do") :
@@ -240,12 +244,6 @@ public class BetterhipHomeController extends HttpServlet {
 			command.excute(request, response);
 			viewPage = "signupCheckIdResult.jsp";
 			break;
-
-		case("/signup/signupCheckPhone.do") :
-			command = new SignUpCheckPhoneCommand();
-			command.excute(request, response);
-			viewPage = "signupCheckPhoneResult.jsp";
-			break;
 			
 		case("/loginForm.do") :
 			viewPage = "login/login.jsp";
@@ -254,7 +252,7 @@ public class BetterhipHomeController extends HttpServlet {
 		case("/login.do") :
 			command = new LoginCommand();
 			command.excute(request, response);
-			viewPage = "main.do";
+			viewPage = request.getAttribute("viewPage").toString();
 			break;
 		
 		case("/findIdPage.do") :
@@ -280,6 +278,11 @@ public class BetterhipHomeController extends HttpServlet {
 			command.excute(request, response);
 			viewPage = "login/printPw.jsp";
 			break;
+		// --------------------------Test -----------------------
+		case("/test.do") :
+			viewPage = "test.jsp";
+			break;
+			
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
