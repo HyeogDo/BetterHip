@@ -63,7 +63,7 @@ public class CartListDao {
 				Blob purchase_cake_img_blob = resultSet.getBlob("cake_img");
 				
 				byte[] imageData = purchase_cake_img_blob.getBytes(1,(int)purchase_cake_img_blob.length());
-				byte[] purchase_cake_img = Base64.encodeBase64(imageData, false);
+				byte[] purchase_cake_img = Base64.encodeBase64(imageData);
 				
 				CartListDto dto = new CartListDto(purchase_id, purchase_quantity, purchase_price, 
 												purchase_custom_size, Pruchase_custom_taste, purchase_custom_cream_type, 
