@@ -12,9 +12,6 @@ public class UserInfoModifyCommand implements BetterhipCommand {
 	public void excute(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		
-		//한글 깨짐 방지
-		response.setCharacterEncoding("UTF-8");
-		
 		//사용자 아이디 겟파라미터로 받을 때 
 		String USER_ID = request.getParameter("user_id");
 				
@@ -24,13 +21,14 @@ public class UserInfoModifyCommand implements BetterhipCommand {
 
 		//사용자가 수정하고자 하는 데이터 받아오기 
 		String new_user_pw = request.getParameter("new_user_pw");
+		String user_name = request.getParameter("user_name");
 		String user_email = request.getParameter("user_email");
 		String user_phone = request.getParameter("user_phone");
 		String user_postcode = request.getParameter("user_postcode");
 		String user_address = request.getParameter("user_address");
 		String user_address_detail = request.getParameter("user_address_detail");
 		UserInfoDao dao = new UserInfoDao();
-		dao.userInfoModify(USER_ID, new_user_pw, user_email, user_phone, user_postcode, user_address, user_address_detail);
+		dao.userInfoModify(USER_ID, new_user_pw, user_name, user_email, user_phone, user_postcode, user_address, user_address_detail);
 		
 		
 		

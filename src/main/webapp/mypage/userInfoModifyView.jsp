@@ -4,32 +4,203 @@
 <!DOCTYPE html>
 <html>
 
-	<script type="text/javascript">
-		function test() {
-			alert("move");
-			document.signupForm.submit();
+
+<!-- CSS -->
+<!-- Button Style -->
+<style>
+.button {
+	background-color: blue;
+	border: none;
+	color: white;
+	padding: 15px 30px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	-webkit-transition-duration: 0.4s;
+	transition-duration: 0.4s;
+	display: block;
+}
+
+.buttonsignup {
+	width: 200px
+}
+
+.buttonsignup {
+	border-radius: 5px
+}
+
+.buttonsignup {
+	background-color: #535353;
+}
+
+.buttonsignup {
+	align-self: center;
+}
+
+.buttonsignup:hover {
+	background-color: #A9A9A9;
+}
+}
+</style>
+ 
+<!-- 전화번호 자동 하이픈 -->
+<script type="text/javascript">
+const autoHyphen2 = (target) => {
+	 target.value = target.value
+	   .replace(/[^0-9]/g, '')
+	  .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+	}
+</script>
+
+<!-- 비밀번호 재확인용 -->
+<script type="text/javascript">
+	function checkPw() {
+		var regExpPasswd = /[0-9]{5,10}$/
+		if(!regExpPasswd.test(document.getElementById('pw').value)) {
+			document.getElementById('checking').innerHTML='사용할 수 없는 비밀번호 입니다.'
+			document.getElementById('checking').style.color='red'
+		} else {
+			document.getElementById('checking').innerHTML='사용가능한 비밀번호 입니다.'
+			document.getElementById('checking').style.color='blue'
 		}
-	</script>
-	
-	<script type="text/javascript">
-		// 체크박스 전체 선택
-		$(".checkbox_group").on("click", "#check_all", function () {
-		    $(this).parents(".checkbox_group").find('input').prop("checked", $(this).is(":checked"));
-		});
-	
-		// 체크박스 개별 선택
-		$(".checkbox_group").on("click", ".normal", function() {
-		    var is_checked = true;
-	
-		    $(".checkbox_group .normal").each(function(){
-		        is_checked = is_checked && $(this).is(":checked");
-		    });
-	
-		    $("#check_all").prop("checked", is_checked);
-		});
-	</script>
- <!-- 다음 주소 시작 -->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	}
+	function checkPwRe() {
+		if(document.getElementById('pw').value !='' && document.getElementById('pw2').value!=''){
+            if(document.getElementById('pw').value==document.getElementById('pw2').value){
+                document.getElementById('check').innerHTML='비밀번호가 일치합니다.'
+                document.getElementById('check').style.color='blue';
+            }
+            else{
+                document.getElementById('check').innerHTML='비밀번호가 일치하지 않습니다.';
+                document.getElementById('check').style.color='red';
+            }
+        }
+	}
+</script>
+
+
+<!--전화번호 중복확인 -->
+<!-- <script type="text/javascript">
+	var isCheckedPhone = false
+</script>
+ -->
+ <!-- 전화번호 중복 확인 -->
+<!-- <script type="text/javascript">
+	function checkPhone() {
+		var regExpPhone = /^\d{3}-\d{3,4}-\d{4}$/
+		var form = document.signupForm
+		
+		// 핸드폰 번호 확인
+		var user_phone = form.user_phone.value
+		if(user_phone == "") {
+			alert("휴대폰 번호를 입력해주세요")
+			return
+		} else {
+			if (!regExpPhone.test(user_phone)) {
+				alert("연락처 입력을 확인해 주세요")
+				form.user_phone.select()
+				return
+			} else {
+				isCheckedPhone = true
+				window.open("http://localhost:9413/BetterHip/signup/signupCheckPhone.do?user_phone=" + user_phone,"","width=500, height=300, left=500, top=150");
+			}
+		} 
+		
+		
+		
+	}
+</script> -->
+
+<!-- 유효성 검사 -->
+<script type="text/javascript">
+	function signup() {
+		
+		//숫자만 5~10자
+		var regExpPasswd = /[0-9]{5,10}$/
+		var regExpName = /^[가-힣]*$/
+		var regExpPhone = /^\d{3}-\d{3,4}-\d{4}$/
+		var regExpEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
+		
+		var form = document.signupForm
+
+		// 비밀번호 확인
+		var new_user_pw = form.new_user_pw.value
+		var new_user_pw_re = form.new_user_pw_re.value
+		if(new_user_pw == "") {
+			alert("비밀번호를 입력해주세요")
+			return
+		}else {
+			if (!regExpPasswd.test(new_user_pw)) {
+				alert("사용할 수 없는 비밀번호 입니다.")
+				form.new_user_pw.select()
+				return
+			}
+			
+		}
+		if(new_user_pw != new_user_pw_re) {
+			alert("비밀번호 재확인이 잘못되었습니다.")
+			return
+		}
+		
+		// 이름 확인
+		var user_name = form.user_name.value
+		if(user_name == "") {
+			alert("이름을 입력해주세요")
+			return
+		}else {
+			if (!regExpName.test(user_name)) {
+				alert("이름은 한글만 입력해주세요")
+				form.user_name.select()
+				return
+			}
+		}
+		
+		//이메일 확인
+		var user_email = form.user_email.value
+		if(user_email == "") {
+			alert("이메일을 입력해주세요")
+			return
+		}else {
+			if (!regExpEmail.test(user_email)) {
+				alert("이메일 입력을 확인해 주세요")
+				form.user_email.select()
+				return
+			}
+		}
+		
+		// 주소 확인
+		var user_address = form.user_address.value
+		var user_address_detail = form.user_address_detail.value
+		if(user_address == "") {
+			alert("주소를 입력해주세요")
+			return
+		}
+		if(user_address_detail = "") {
+			alert("상세주소를 입력해주세요")
+			form.user_address_detail.select()
+			return
+		}
+		
+/* 		// 핸드폰 번호 중복체크 확인 여부
+		if(isCheckedPhone == false) {
+			alert("핸드폰 번호 중복체크를 해주세요")
+			return
+		} */
+		
+		if(confirm("수정이 완료 되었습니다.")){
+			location.href = "userInfoModifyView.do";
+		}
+		
+		document.signupForm.submit();
+	}
+</script>
+
+<!-- 주소 api 불러오기 -->
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     function sample6_execDaumPostcode() {
         new daum.Postcode({
@@ -78,20 +249,17 @@
             }
         }).open();
     }
-</script> 
-
-
+</script>
 
 <head>
 <meta charset="UTF-8">
 <title>회원정보 변경</title>
 </head>
-
-
+<!--회원정보 수정 View 메인-->
 <body>
 	<div style="position: absolute; left: 40%">
 	
-		<form action="userInfoModify.do" name="userInfoView" method="post">
+		<form action="userInfoModify.do" name="signupForm" method="get">
 		
 			<table>
 				<tr>
@@ -108,65 +276,61 @@
 					<td colspan="2"><input type="text" name="user_id" size="41" value="${userInfo.user_id }" readonly="readonly"></td>
 				</tr>
 				<tr>
-					<td>비밀번호</td>
+					<td>이름</td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="password" name="user_pw" size="41" value="${userInfo.user_pw }" readonly="readonly"></td>
+					<td colspan="2"><input type="text" name="user_name" size="41" value="${userInfo.user_name }" onfocus="this.select()"></td>
 				</tr>
 				<tr>
 					<td>새 비밀번호</td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="password" name="new_user_pw" size="41"></td>
+					<td colspan="2"><input placeholder="비밀번호는 숫자로 5~10자만 입력해주세요!!" 
+					type="password" name="new_user_pw" size="41" id="pw" onkeyup="checkPw()" onchange="checkPwRe()" maxlength="10"></td>
+					<td><span id="checking"></span></td>
 				</tr>
 				<tr>
 					<td>비밀번호 재확인</td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="password" name="check_new_user_pw" size="41"></td>
+					<td colspan="2"><input type="password" name="new_user_pw_re" size="41" id="pw2" onkeyup="checkPwRe()"></td>
+					<td><span id="check"></span></td>
 				</tr>
 				<tr>
 					<td>이메일</td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="text" name="user_email" size="41" value="${userInfo.user_email }"></td>
+					<td colspan="2"><input type="text" name="user_email" size="41" value="${userInfo.user_email }" onfocus="this.select()"></td>
 				</tr>
 				<tr>
 					<td>휴대폰 번호</td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="text" name="user_phone" size="30" value="${userInfo.user_phone }"> <input type="button" size="20" value="중복확인"></td>
+					<td colspan="2"><input type="text" name="user_phone" value="${userInfo.user_phone }" oninput="autoHyphen2(this)" maxlength="13" onfocus="this.select()"> 
+				<!-- 	<input type="button" size="20" value="중복확인" onclick="checkPhone()"></td> -->
 				</tr>
 				<tr>
 					<td>주소</td>
 				</tr>
 				<tr>
 					<td>
-						<input type="text" onclick="sample6_execDaumPostcode()" id="sample6_postcode" name="user_postcode" size="30" value= "${userInfo.user_postcode } ">
-						<input type="button" onclick="sample6_execDaumPostcode()" size="20" value="우편번호"><br>
-						<input type="text" onclick="sample6_execDaumPostcode()" id="sample6_address" size="41" name="user_address" value= "${userInfo.user_address } "><br>
-						<input type="text" id="sample6_detailAddress" size="41" placeholder="상세주소 입력" name="user_address_detail" value= "${userInfo.user_address_detail } ">
+						<input type="text" onclick="sample6_execDaumPostcode()" id="sample6_postcode" name="user_postcode" size="30" value= "${userInfo.user_postcode } " onfocus="this.select()">
+						<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호"><br>
+						<input type="text" onclick="sample6_execDaumPostcode()" readonly="readonly" id="sample6_address" size="41" placeholder="기본주소" name="user_address" value= "${userInfo.user_address } " onfocus="this.select()"><br>
+						<input type="text" id="sample6_detailAddress" size="41" placeholder="상세주소 입력" name="user_address_detail" value= "${userInfo.user_address_detail } " onfocus="this.select()">
 					</td>
 					</tr>
 			
-			</table>
 			
-			<div class="checkbox_group">
-				<input type="checkbox" id="check_all">
-				<label for="check_all">전체 동의</label><br>
-					  
-				<input type="checkbox" id="check_1" class="normal" >
-				<label for="check_1">개인정보 처리방침 동의</label><br>
-					  
-				<input type="checkbox" id="check_2" class="normal" >
-				<label for="check_2">서비스 이용약관 동의</label><br>
-					  
-				<input type="checkbox" id="check_3" class="normal" >
-				<label for="check_3">마케팅 수신 동의</label><br>
-			</div>
-		
-		
-			<input type="submit" name="userInfoModify" value="수정">
+				<tr>
+					<!-- 수정버튼  -->
+					<td align="center" colspan="2">
+
+						<input type="button" value="회원 정보 수정" name="btnSubmit" onclick="signup()" class="buttonsignup">
+
+					</td>
+				</tr>
+			</table>
 	
 		</form>
 	

@@ -8,6 +8,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import org.apache.catalina.connector.Response;
+
 import com.betterhip.dto.mypage.UserInfoDto;
 
 public class UserInfoViewDao {
@@ -39,7 +41,6 @@ public class UserInfoViewDao {
 	//method 
 	
 	public UserInfoDto userInfoView(String USER_ID){
-		
 		
 		UserInfoDto dto = null;
 		
