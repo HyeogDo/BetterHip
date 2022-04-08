@@ -81,14 +81,13 @@ const autoHyphen2 = (target) => {
 	}
 </script>
 
-
 <!--전화번호 중복확인 -->
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 	var isCheckedPhone = false
 </script>
- -->
- <!-- 전화번호 중복 확인 -->
-<!-- <script type="text/javascript">
+
+<!--  전화번호 중복 확인 -->
+<script type="text/javascript">
 	function checkPhone() {
 		var regExpPhone = /^\d{3}-\d{3,4}-\d{4}$/
 		var form = document.signupForm
@@ -112,11 +111,11 @@ const autoHyphen2 = (target) => {
 		
 		
 	}
-</script> -->
+</script> 
 
 <!-- 유효성 검사 -->
 <script type="text/javascript">
-	function signup() {
+	function userInfoModify() {
 		
 		//숫자만 5~10자
 		var regExpPasswd = /[0-9]{5,10}$/
@@ -124,7 +123,7 @@ const autoHyphen2 = (target) => {
 		var regExpPhone = /^\d{3}-\d{3,4}-\d{4}$/
 		var regExpEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
 		
-		var form = document.signupForm
+		var form = document.userInfoModifyForm
 
 		// 비밀번호 확인
 		var new_user_pw = form.new_user_pw.value
@@ -195,7 +194,7 @@ const autoHyphen2 = (target) => {
 			location.href = "userInfoModifyView.do";
 		}
 		
-		document.signupForm.submit();
+		document.userInfoModifyForm.submit();
 	}
 	
 </script>
@@ -261,7 +260,7 @@ const autoHyphen2 = (target) => {
 <body>
 	<div style="position: absolute; left: 40%">
 	
-		<form action="userInfoModify.do" name="signupForm" method="get">
+		<form action="userInfoModify.do" name="userInfoModifyForm" method="get">
 		
 			<table>
 				<tr>
@@ -309,7 +308,7 @@ const autoHyphen2 = (target) => {
 				</tr>
 				<tr>
 					<td colspan="2"><input type="text" name="user_phone" value="${userInfo.user_phone }" oninput="autoHyphen2(this)" maxlength="13" onfocus="this.select()"> 
-				<!-- 	<input type="button" size="20" value="중복확인" onclick="checkPhone()"></td> -->
+					<input type="button" size="20" value="중복확인" onclick="checkPhone()"></td> 
 				</tr>
 				<tr>
 					<td>주소</td>
@@ -328,7 +327,7 @@ const autoHyphen2 = (target) => {
 					<!-- 수정버튼  -->
 					<td align="center" colspan="2">
 
-						<input type="button" value="회원 정보 수정" name="btnSubmit" onclick="signup()" class="buttonsignup">
+						<input type="button" value="회원 정보 수정" name="btnSubmit" onclick="userInfoModify()" class="buttonUserInfoModify">
 
 					</td>
 				</tr>
