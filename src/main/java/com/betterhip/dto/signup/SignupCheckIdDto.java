@@ -1,4 +1,4 @@
-package com.betterhip.dto.signupCheckIdDto;
+package com.betterhip.dto.signup;
 
 public class SignupCheckIdDto {
 	String user_id;

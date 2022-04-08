@@ -6,24 +6,24 @@ import javax.servlet.http.HttpSession;
 
 import com.betterhip.command.BetterhipCommand;
 import com.betterhip.dao.signup.SignUpDao;
-import com.betterhip.dto.signup.SignupCheckIdDto;
+import com.betterhip.dto.signup.SignupCheckPhoneDto;
 
-public class SignUpCheckIdCommand implements BetterhipCommand {
+public class SignUpCheckPhoneCommand implements BetterhipCommand {
 
 	@Override
 	public void excute(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		
-		String user_id = request.getParameter("user_id");
+		String user_phone = request.getParameter("user_phone");
 		
 		SignUpDao dao = new SignUpDao();
-		SignupCheckIdDto dto = dao.signupCheckId(user_id);
+		SignupCheckPhoneDto dto = dao.signupCheckPhone(user_phone);
 		HttpSession session = request.getSession();
 		
-		if (dto.getUser_id() == null) {
-			session.setAttribute("RESULT_ID", "Possible");
+		if (dto.getUser_phone() == null) {
+			session.setAttribute("RESULT_PHONE", "Possible");
 		} else {
-			session.setAttribute("RESULT_ID", "Impossible");
+			session.setAttribute("RESULT_PHONE", "Impossible");
 		}
 		
 		
