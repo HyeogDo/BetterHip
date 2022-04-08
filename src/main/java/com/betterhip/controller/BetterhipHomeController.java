@@ -125,7 +125,6 @@ public class BetterhipHomeController extends HttpServlet {
 			viewPage = "mypage/purchaseList.jsp";
 			break;
 			
-			//회원정보 변경 메인 
 		case("/userInfoModifyView.do") :
 			command = new UserInfoViewCommand();
 			command.excute(request, response);
