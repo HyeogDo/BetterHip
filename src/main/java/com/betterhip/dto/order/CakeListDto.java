@@ -1,20 +1,20 @@
 package com.betterhip.dto.order;
 
-import java.sql.Blob;
+
 
 public class CakeListDto {
 	int cake_id;
 	String cake_name;
 	int cake_saleprice;
 	String cake_status;
-	Blob cake_img;
-	public CakeListDto(int cake_id, String cake_name, int cake_saleprice, String cake_status, Blob cake_img) {
+	String base64Image;
+	public CakeListDto(int cake_id, String cake_name, int cake_saleprice, String cake_status, String base64Image) {
 		super();
 		this.cake_id = cake_id;
 		this.cake_name = cake_name;
 		this.cake_saleprice = cake_saleprice;
 		this.cake_status = cake_status;
-		this.cake_img = cake_img;
+		this.base64Image = base64Image;
 	}
 	public int getCake_id() {
 		return cake_id;
@@ -40,12 +40,13 @@ public class CakeListDto {
 	public void setCake_status(String cake_status) {
 		this.cake_status = cake_status;
 	}
-	public Blob getCake_img() {
-		return cake_img;
+	public String getbase64Image() {
+		return base64Image;
 	}
-	public void setCake_img(Blob cake_img) {
-		this.cake_img = cake_img;
+	public void getbase64Image(String base64Image) {
+		this.base64Image = base64Image;
 	}
+	
 	
 	
 	

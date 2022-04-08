@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="cakeListView.do">
+	<form action="cakeListView.do?start=0&len=4">
+	<% session.setAttribute("page", 1); %>
 		<input type="submit" value="go">
 	</form>
 </body>
